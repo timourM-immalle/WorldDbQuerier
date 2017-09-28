@@ -28,4 +28,4 @@ namespace WorldDbQuerier
         }
     }
 }
-/* U kan het ook anders doen: Porperties, Debug, ...*/
+/* U kan het ook anders doen: Porperties, Debug, evt. "New ..." profiel aanmaken, Application Arguments: -v, opslaan*/

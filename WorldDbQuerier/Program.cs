@@ -5,6 +5,7 @@ namespace WorldDbQuerier
 {
     class Program
     {
+        //0.1
         //command parser
         private static string versie = "0.1";
 
@@ -27,7 +28,15 @@ namespace WorldDbQuerier
                 Console.WriteLine("hello World");
             }
 
-            
+            //0.2
+            MySqlConnection con = new MySqlConnection();
+            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT Name FROM world.Country";
+
+            con.Open();
         }
     }
 }

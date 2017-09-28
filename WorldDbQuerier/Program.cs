@@ -30,13 +30,17 @@ namespace WorldDbQuerier
 
             //0.2
             MySqlConnection con = new MySqlConnection();
-            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"
+            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;";
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = "SELECT Name FROM world.Country";
+            cmd.CommandText = "SELECT COUNT(Name) FROM world.Country";
 
             con.Open();
+
+            Console.WriteLine("aantal landen: " + cmd.ExecuteScalar());
+
+            //0.3
         }
     }
 }

@@ -8,6 +8,8 @@ namespace WorldDbQuerier
 
         static void Main(string[] args)
         {
+            //args[0] = Console.ReadLine();
+
             if (args.Length > 0)
             {
                 switch (args[0])
@@ -23,3 +25,4 @@ namespace WorldDbQuerier
         }
     }
 }
+/* U kan het ook anders doen: Porperties, Debug, ...*/

@@ -4,12 +4,11 @@ namespace WorldDbQuerier
 {
     class Program
     {
+        //command parser
         private static string versie = "0.1";
 
         static void Main(string[] args)
         {
-            //args[0] = Console.ReadLine();
-
             if (args.Length > 0) //controleren of er elementen inzitten
             {
                 switch (args[0])

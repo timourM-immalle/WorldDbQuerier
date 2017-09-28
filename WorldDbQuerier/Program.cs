@@ -47,11 +47,13 @@ namespace WorldDbQuerier
             Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
             Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken:");
 
-            if (Console.ReadLine() == 1.ToString())
+            cmd2.Connection = con;
+
+            if (Console.ReadLine() == "1")
             {
                 cmd2.CommandText = cmd1.CommandText;
             }
-            else if (Console.ReadLine() == 2.ToString())
+            else if (Console.ReadLine() == "2")
             {
                 cmd2.CommandText = "SELECT Name FROM world.Country";
             }
@@ -60,9 +62,9 @@ namespace WorldDbQuerier
                 Console.WriteLine("Error: verkeerde input");
             }
 
-            cmd2.Connection = con;
+            
 
-            con.Open();
+            //con.Open();
 
             Console.WriteLine(cmd2.ExecuteScalar());
         }

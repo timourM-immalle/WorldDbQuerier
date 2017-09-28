@@ -10,7 +10,7 @@ namespace WorldDbQuerier
         {
             //args[0] = Console.ReadLine();
 
-            if (args.Length > 0)
+            if (args.Length > 0) //controleren of er elementen inzitten
             {
                 switch (args[0])
                 {
@@ -21,6 +21,10 @@ namespace WorldDbQuerier
                         Console.WriteLine("Onbekende argmuenten");
                         break;
                 }
+            }
+            else
+            {
+                Console.WriteLine("hello World");
             }
         }
     }

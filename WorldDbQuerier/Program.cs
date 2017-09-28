@@ -32,15 +32,39 @@ namespace WorldDbQuerier
             MySqlConnection con = new MySqlConnection();
             con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;";
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT COUNT(Name) FROM world.Country";
+            MySqlCommand cmd1 = new MySqlCommand();
+            cmd1.Connection = con;
+            cmd1.CommandText = "SELECT COUNT(Name) FROM world.Country";
 
             con.Open();
 
-            Console.WriteLine("aantal landen: " + cmd.ExecuteScalar());
+            Console.WriteLine("aantal landen: " + cmd1.ExecuteScalar());
 
             //0.3
+            MySqlCommand cmd2 = new MySqlCommand();
+
+            Console.WriteLine("Kies (vul het cijfer in):");
+            Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
+            Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken:");
+
+            if (Console.ReadLine() == 1.ToString())
+            {
+                cmd2.CommandText = cmd1.CommandText;
+            }
+            else if (Console.ReadLine() == 2.ToString())
+            {
+                cmd2.CommandText = "SELECT Name FROM world.Country";
+            }
+            else
+            {
+                Console.WriteLine("Error: verkeerde input");
+            }
+
+            cmd2.Connection = con;
+
+            con.Open();
+
+            Console.WriteLine(cmd2.ExecuteScalar());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using MySql.Data.MySqlClient;
 
 namespace WorldDbQuerier
 {
@@ -25,6 +26,8 @@ namespace WorldDbQuerier
             {
                 Console.WriteLine("hello World");
             }
+
+            
         }
     }
 }

@@ -30,7 +30,7 @@ namespace WorldDbQuerier
 
             //0.2
             MySqlConnection con = new MySqlConnection();
-            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;";
+            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
 
             MySqlCommand cmd1 = new MySqlCommand();
             cmd1.Connection = con;
@@ -43,26 +43,27 @@ namespace WorldDbQuerier
             //0.3
             MySqlCommand cmd2 = new MySqlCommand();
 
-            Console.WriteLine("Kies (vul het cijfer in):");
+            Console.WriteLine();
+            Console.WriteLine("Kies (vul het cijfer in en druk op Enter):");
             Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
             Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken:");
 
             cmd2.Connection = con;
 
-            if (Console.ReadLine() == "1")
+            switch (Console.ReadLine())
             {
-                cmd2.CommandText = cmd1.CommandText;
-            }
-            else if (Console.ReadLine() == "2")
-            {
-                cmd2.CommandText = "SELECT Name FROM world.Country";
-            }
-            else
-            {
-                Console.WriteLine("Error: verkeerde input");
+                case "1":
+                    cmd2.CommandText = cmd1.CommandText;
+                    break;
+                case "2":
+                    cmd2.CommandText = "SELECT Name FROM world.Country";
+                    break;
+                default:
+                    Console.WriteLine("Error: verkeerde input");
+                    break;
             }
 
-            
+
 
             //con.Open();
 

@@ -56,7 +56,7 @@ namespace WorldDbQuerier
                     cmd2.CommandText = cmd1.CommandText;
                     break;
                 case "2":
-                    cmd2.CommandText = "SELECT Name FROM world.Country";
+                    cmd2.CommandText = "SELECT world.Country.Name FROM world.Country";
                     break;
                 default:
                     Console.WriteLine("Error: verkeerde input");

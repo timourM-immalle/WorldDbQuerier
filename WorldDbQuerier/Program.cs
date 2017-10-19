@@ -9,7 +9,7 @@ namespace WorldDbQuerier
         private static string connectieString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
         private static string aantalLanden = "SELECT COUNT(Name) FROM world.Country";
 
-        private static void ToonAantalLanden()
+        private  static void ToonAantalLanden()
         {
             MySqlConnection con = new MySqlConnection();
             con.ConnectionString = connectieString; 
@@ -68,9 +68,13 @@ namespace WorldDbQuerier
             {
                 case "1":
                     cmd2.CommandText = aantalLanden;
+                    Console.WriteLine(cmd2.ExecuteScalar());
                     break;
                 case "2":
                     cmd2.CommandText = "SELECT world.Country.Name FROM world.Country";
+
+                    for (int i = 0; i < //aantalLanden)
+                    Console.WriteLine(cmd2.ExecuteScalar());
                     break;
                 default:
                     Console.WriteLine("Error: verkeerde input");
@@ -78,8 +82,6 @@ namespace WorldDbQuerier
             }
 
             //con.Open();
-
-            Console.WriteLine(cmd2.ExecuteScalar());
         }
     }
 }

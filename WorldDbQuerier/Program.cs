@@ -5,6 +5,29 @@ namespace WorldDbQuerier
 {
     class Program
     {
+        private static MySqlConnection con = new MySqlConnection();
+        private static string connectieString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
+        private static string aantalLanden = "SELECT COUNT(Name) FROM world.Country";
+
+        private static void ToonAantalLanden()
+        {
+            MySqlConnection con = new MySqlConnection();
+            con.ConnectionString = connectieString; 
+
+            MySqlCommand cmd1 = new MySqlCommand();
+            cmd1.Connection = con;
+            cmd1.CommandText = aantalLanden;
+
+            con.Open();
+
+            Console.WriteLine("aantal landen: " + cmd1.ExecuteScalar());
+        }
+
+        private static void ToonAlleLanden()
+        {
+            
+        }
+
         //0.1
         //command parser
         private static string versie = "0.1";
@@ -29,16 +52,7 @@ namespace WorldDbQuerier
             }
 
             //0.2
-            MySqlConnection con = new MySqlConnection();
-            con.ConnectionString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
-
-            MySqlCommand cmd1 = new MySqlCommand();
-            cmd1.Connection = con;
-            cmd1.CommandText = "SELECT COUNT(Name) FROM world.Country";
-
-            con.Open();
-
-            Console.WriteLine("aantal landen: " + cmd1.ExecuteScalar());
+            ToonAantalLanden();
 
             //0.3
             MySqlCommand cmd2 = new MySqlCommand();
@@ -53,7 +67,7 @@ namespace WorldDbQuerier
             switch (Console.ReadLine())
             {
                 case "1":
-                    cmd2.CommandText = cmd1.CommandText;
+                    cmd2.CommandText = aantalLanden;
                     break;
                 case "2":
                     cmd2.CommandText = "SELECT world.Country.Name FROM world.Country";
@@ -62,8 +76,6 @@ namespace WorldDbQuerier
                     Console.WriteLine("Error: verkeerde input");
                     break;
             }
-
-
 
             //con.Open();
 

@@ -77,10 +77,17 @@ namespace WorldDbQuerier
                 case "2":
                     cmd2.CommandText = "SELECT world.Country.Name FROM world.Country";
                     cmd2.ExecuteScalar();//"connection must be opened"
-                    //for (int i = 0; i <= landen(); i++)
-                    //{
-                    //    Console.WriteLine(cmd2.ExecuteScalar());
-                    //}
+                                         //for (int i = 0; i <= landen(); i++)
+                                         //{
+                                         //    Console.WriteLine(cmd2.ExecuteScalar());
+
+                    MySqlDataReader reader = cmd2.ExecuteReader();
+                    int teller = 0;
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(cmd2.ExecuteScalar());
+                        teller++;
+                    }
                     break;
                 default:
                     Console.WriteLine("Error: verkeerde input");

@@ -43,9 +43,22 @@ namespace WorldDbQuerier
 
             while (lezer.Read())
             {
-                Console.WriteLine(lezer["Name"]);
+                Console.WriteLine(lezer["Name"]); //niet lezer["world.Country.Name"]
             }
 
+        }
+
+        private static void ZoekOpNaamEnPrint()
+        {
+            MySqlParameter parameter = new MySqlParameter();
+            MySqlConnection con = new MySqlConnection();
+            con.ConnectionString = connectieString;
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT * FROM World.Country"; //Aanpassen?
+
+            
         }
 
         //0.1

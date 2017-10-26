@@ -7,19 +7,19 @@ namespace WorldDbQuerier
     {
         //private static MySqlConnection con = new MySqlConnection();
         private static string connectieString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
-        private static string aantalLandenSQL = "SELECT COUNT(Name) FROM world.Country";
+        
 
         private static int landen()
         {
-            MySqlConnection con1 = new MySqlConnection();
-            con1.ConnectionString = connectieString;
+            MySqlConnection con = new MySqlConnection();
+            con.ConnectionString = connectieString;
 
-            MySqlCommand cmd1 = new MySqlCommand();
-            cmd1.Connection = con1;
-            cmd1.CommandText = aantalLandenSQL;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT COUNT(Name) FROM world.Country";
 
-            con1.Open();
-            return Convert.ToInt32(cmd1.ExecuteScalar());
+            con.Open();
+            return Convert.ToInt32(cmd.ExecuteScalar());
         }
         private static void ToonAantalLanden()
         {
@@ -28,41 +28,24 @@ namespace WorldDbQuerier
 
         private static void ToonAlleLanden()
         {
-            MySqlConnection con2 = new MySqlConnection();
-            con2.ConnectionString = connectieString;
-            con2.Open();
+            MySqlConnection con = new MySqlConnection();
+            con.ConnectionString = connectieString;
+            
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT world.Country.Name FROM world.Country";
+            //cmd2.ExecuteScalar();//"connection must be opened"
 
-            MySqlCommand cmd2 = new MySqlCommand();
-            cmd2.Connection = con2;
+            MySqlDataReader lezer;
 
-            Console.WriteLine();
-            Console.WriteLine("Kies (vul het cijfer in en druk op Enter):");
-            Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
-            Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken:");
+            con.Open();
+            lezer = cmd.ExecuteReader();
 
-            switch (Console.ReadLine()) //Console.ReadLine andere opmaak?
+            while (lezer.Read())
             {
-                case "1":
-                    ToonAantalLanden();
-                    break;
-                case "2":
-                    cmd2.CommandText = "SELECT world.Country.Name FROM world.Country";
-                    //cmd2.ExecuteScalar();//"connection must be opened"
-
-                    MySqlDataReader lezer;
-                    lezer = cmd2.ExecuteReader();
-                    int teller = 0;
-                    while (lezer.Read())
-                    {
-
-                        Console.WriteLine(cmd2.ExecuteScalar());
-                        teller++;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Error: verkeerde input");
-                    break;
+                Console.WriteLine(lezer["Name"]);
             }
+
         }
 
         //0.1
@@ -79,7 +62,7 @@ namespace WorldDbQuerier
                         Console.WriteLine("Versie " + versie);
                         break;
                     default:
-                        Console.WriteLine("Onbekende argmuenten");
+                        Console.WriteLine("Onbekende argumenten");
                         break;
                 }
             }
@@ -88,11 +71,24 @@ namespace WorldDbQuerier
                 Console.WriteLine("hello World");
             }
 
-            //0.2
-            ToonAantalLanden();
-
             //0.3
-            ToonAantalLanden();
+            Console.WriteLine();
+            Console.WriteLine("Kies (vul het cijfer in en druk op Enter):");
+            Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
+            Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken:");
+
+            switch (Console.ReadLine()) //Console.ReadLine andere opmaak?
+            {
+                case "1":
+                    ToonAantalLanden();
+                    break;
+                case "2":
+                    ToonAlleLanden();
+                    break;
+                default:
+                    Console.WriteLine("Error: verkeerde input");
+                    break;
+            }
         }
     }
 }

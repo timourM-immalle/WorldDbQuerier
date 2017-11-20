@@ -65,7 +65,7 @@ namespace WorldDbQuerier
 
             
             con.Open();
-            lezer = cmd.ExecuteReader();
+            lezer = cmd.ExecuteReader(); //error
 
             while (lezer.Read())
             {
@@ -152,7 +152,7 @@ namespace WorldDbQuerier
             Console.WriteLine("Kies (vul het cijfer in en druk op Enter):");
             Console.WriteLine("1. Het aantal landen aanwezig in de database afdrukken");
             Console.WriteLine("2. Een lijst met alle landen aanwezig in de database afdrukken");
-            Console.WriteLine("3. Zoeken op een (gedeeltelijke) landnaam en alle info erover afdrukken");
+            Console.WriteLine("3. Zoeken op een (gedeeltelijke) landnaam en alle info erover afdrukken (vul hierna eerst het land in, een deel ervan of de code ervan)");
 
             switch (Console.ReadLine()) //Console.ReadLine andere opmaak?
             {
@@ -164,14 +164,14 @@ namespace WorldDbQuerier
                     break;
                 //0.4
                 case "3":
-                    //ZoekOpNaamEnPrint();
+                    ZoekOpNaamEnPrint(); //error
                     break;
                 default:
                     Console.WriteLine("Error: verkeerde input");
                     break;
             }
 
-            //0.4
+            //0.4: af te maken tot hier!!!
 
         }
     }

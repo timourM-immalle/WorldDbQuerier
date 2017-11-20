@@ -69,7 +69,7 @@ namespace WorldDbQuerier
 
             while (lezer.Read())
             {
-                if (lezer["Name"].ToString() != land || lezer["Code"].ToString() != land)
+                if (lezer["Name"].ToString().ToLower() != land.ToLower() || lezer["Code"].ToString().ToLower() != land.ToLower())
                 {
                     //...
                     for (int i = 0; i <= 15; i++)

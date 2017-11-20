@@ -7,9 +7,10 @@ namespace WorldDbQuerier
     {
         //private static MySqlConnection con = new MySqlConnection();
         private static string connectieString = "Server=192.168.56.121; Port=3306; Database=world; Uid=imma; Pwd=r00t;"; //zet de database world eerst als "Default Schema" (RM)
+        //using om connectie te openen?
         
 
-        private static int landen()
+        private static void ToonAantalLanden()
         {
             MySqlConnection con = new MySqlConnection();
             con.ConnectionString = connectieString;
@@ -19,12 +20,13 @@ namespace WorldDbQuerier
             cmd.CommandText = "SELECT COUNT(Name) FROM world.Country";
 
             con.Open();
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            Console.WriteLine(cmd.ExecuteScalar());
         }
-        private static void ToonAantalLanden()
-        {
-            Console.WriteLine(landen());
-        }
+
+        //private static void ToonAantalLanden()
+        //{
+        //    Console.WriteLine(Landen());
+        //}
 
         private static void ToonAlleLanden()
         {
@@ -50,20 +52,46 @@ namespace WorldDbQuerier
 
         private static void ZoekOpNaamEnPrint()
         {
+            string land;
+            
             MySqlParameter parameter = new MySqlParameter();
             MySqlConnection con = new MySqlConnection();
             con.ConnectionString = connectieString;
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM World.Country"; //Aanpassen?
+            cmd.CommandText = "SELECT * FROM World.Country"; //Aanpassen? Ja: "select " + ... + " from World.Country";
+
+            MySqlDataReader lezer;
+            con.Open();
+            lezer = cmd.ExecuteScalar();
+
+            while (lezer.Read())
+            {
+                if (/*Country != land*/)
+                {
+                    //...
+                    for (int i = 0; i <= 15; i++)
+                    {
+                        if (i < 15)
+                        {
+                            Console.WriteLine(lezer[i] + " | ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(lezer[i]);
+                        }
+                    }
+                    continue;
+                }
+            }
 
             
         }
 
         //0.1
         //command parser
-        private static string versie = "0.1";
+        private static string versie = "0.3";
 
         static void Main(string[] args)
         {

@@ -54,7 +54,6 @@ namespace WorldDbQuerier
         private static void ZoekOpNaamEnPrint()
         {
             string land = Console.ReadLine();
-            List<char> landTekens = new List<char>();
             MySqlDataReader lezer;
             MySqlParameter parameter = new MySqlParameter();
             MySqlConnection con = new MySqlConnection();
@@ -64,18 +63,13 @@ namespace WorldDbQuerier
             cmd.Connection = con;
             cmd.CommandText = "SELECT * FROM World.Country"; //Aanpassen? Ja: "select " + ... + " from World.Country";
 
-            foreach (char teken in land)
-            {
-                landTekens.Add(teken);
-            }
-
             
             con.Open();
             lezer = cmd.ExecuteReader();
 
             while (lezer.Read())
             {
-                if (lezer["Name"] != land || lezer["Code"] != land)
+                if (lezer["Name"].ToString() != land || lezer["Code"].ToString() != land)
                 {
                     //...
                     for (int i = 0; i <= 15; i++)
@@ -95,10 +89,39 @@ namespace WorldDbQuerier
                 {
                     /*land is begin van Country*/
                     //Vergelijk de tekens van lezer["Name"] met die van land/landTekens! Als de tekens overeenkomen (in juiste volgorde!), wordt hetzefde gedaan als hierboven.
+                    bool overeengekomenTekens;
+
+                    int i = 0;
+                    int j = 0;
+
+                    foreach (char teken in land)
+                    {
+                        i++;
+                    }
+
+                    foreach (char teken in land)
+                    {
+                        j++;
+                    }
+
+                    char[] landTekens = new char[i];
+                    char[] landnaamTekens = new char[j];
+
+                    for (int k = 0; k <= i; k++)
+                    {
+                        int l = k;
+                        if (landTekens[k] == landnaamTekens[l])
+                        {
+                            overeengekomenTekens = true;
+                        }
+                        else
+                        {
+                            overeengekomenTekens = false;
+                            continue;
+                        }
+                    }
                 }
             }
-
-            
         }
 
         //0.1

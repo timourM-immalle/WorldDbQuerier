@@ -1,5 +1,6 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace WorldDbQuerier
 {
@@ -52,8 +53,9 @@ namespace WorldDbQuerier
 
         private static void ZoekOpNaamEnPrint()
         {
-            string land;
-            
+            string land = Console.ReadLine();
+            List<char> landTekens = new List<char>();
+            MySqlDataReader lezer;
             MySqlParameter parameter = new MySqlParameter();
             MySqlConnection con = new MySqlConnection();
             con.ConnectionString = connectieString;
@@ -62,20 +64,25 @@ namespace WorldDbQuerier
             cmd.Connection = con;
             cmd.CommandText = "SELECT * FROM World.Country"; //Aanpassen? Ja: "select " + ... + " from World.Country";
 
-            MySqlDataReader lezer;
+            foreach (char teken in land)
+            {
+                landTekens.Add(teken);
+            }
+
+            
             con.Open();
-            lezer = cmd.ExecuteScalar();
+            lezer = cmd.ExecuteReader();
 
             while (lezer.Read())
             {
-                if (/*Country != land*/)
+                if (lezer["Name"] != land || lezer["Code"] != land)
                 {
                     //...
                     for (int i = 0; i <= 15; i++)
                     {
                         if (i < 15)
                         {
-                            Console.WriteLine(lezer[i] + " | ");
+                            Console.WriteLine(lezer[i]/*of met namen werken ipv met indices*/ + " | ");
                         }
                         else
                         {
@@ -83,6 +90,11 @@ namespace WorldDbQuerier
                         }
                     }
                     continue;
+                }
+                else
+                {
+                    /*land is begin van Country*/
+                    //Vergelijk de tekens van lezer["Name"] met die van land/landTekens! Als de tekens overeenkomen (in juiste volgorde!), wordt hetzefde gedaan als hierboven.
                 }
             }
 
